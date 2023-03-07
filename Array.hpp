@@ -104,19 +104,3 @@ namespace numpp
 		return N;
 	}	
 }
-	
-	template <typename T> static void print(Array<T> val)
-	{
-		try{
-			for(auto i:val.value)
-			{
-				std::cout<<i<<" ";
-			}
-		}
-		catch(...)
-		{
-			return;
-		}
-	}
-	
-}
