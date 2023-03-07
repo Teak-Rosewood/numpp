@@ -56,9 +56,9 @@ namespace numpp
 	
 	template <typename T> void print(Array<T> val)
 	{
-		for(T i:val.value)
+		for(int i=0;i<val.value.size();i++)
 		{
-				std::cout<<&i<<" ";
+				std::cout<<&(val.value[i])<<" ";
 		}
 	}
 	
