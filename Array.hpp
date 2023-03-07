@@ -3,11 +3,6 @@
 
 namespace numpp
 {
-	template <typename T> void print(Array<T> val);
-	template <typename T> void printRef(Array<T> val);
-	template<class T, int N> Array<T> toArray(T (&r)[N]);
-	template<class T, int N> int size(T (&r)[N]);
-	
 	template <typename T> class Array{
 		public:
 			std::vector<T> value;
@@ -15,7 +10,15 @@ namespace numpp
 			Array();
 			Array(T input[],int len);
 			Array(T input);
+			
+			int shape();
 	};
+	
+	
+	template <typename T> void print(Array<T> val);
+	template <typename T> void printRef(Array<T> val);
+	template<class T, int N> Array<T> toArray(T (&r)[N]);
+	template<class T, int N> int size(T (&r)[N]);
 	
 	// Constructors
 	template <typename T> Array<T>::Array()
@@ -36,10 +39,14 @@ namespace numpp
 		value.push_back(input);
 	}
 	
+	template <typename T> int Array<T>::shape()
+	{
+		return value.size();
+	}
+	
 	/*
 	Prints value of each element.
-	Throws a compile time error if data cannot be binded to std::ostream
-	Use void printRef(Array<T>) for such data types.
+	If data cannot be printed, prints reference to data.
 	
 	PARAMS:
 		Array<T> val : input of numpp::Array object.
@@ -51,24 +58,63 @@ namespace numpp
 	{
 		for(T i:val.value)
 		{
+				std::cout<<&i<<" ";
+		}
+	}
+	
+	template <> void print(Array<int> val)
+	{
+		for(int i:val.value)
+		{
+				std::cout<<i<<" ";
+		}
+	}
+
+	template <> void print(Array<char> val)
+	{
+		for(char i:val.value)
+		{
 				std::cout<<i<<" ";
 		}
 	}
 	
-	/*
-	Print reference to objects, can be a security hazard (USE WITH CAUTION)
-	
-	PARAMS:
-		Array<T> val : input of numpp::Array object.
-	RETURN:
-		void : prints address to console.
-	*/
-	
-	template <typename T> void printRef(Array<T> val)
+	template <> void print(Array<float> val)
 	{
-		for(T i:val.value)
+		for(float i:val.value)
 		{
-				std::cout<<&i<<" ";
+				std::cout<<i<<" ";
+		}
+	}
+	
+	template <> void print(Array<double> val)
+	{
+		for(double i:val.value)
+		{
+				std::cout<<i<<" ";
+		}
+	}
+	
+	template <> void print(Array<long> val)
+	{
+		for(long i:val.value)
+		{
+				std::cout<<i<<" ";
+		}
+	}
+	
+	template <> void print(Array<short> val)
+	{
+		for(short i:val.value)
+		{
+				std::cout<<i<<" ";
+		}
+	}
+	
+	template <> void print(Array<std::string> val)
+	{
+		for(std::string i:val.value)
+		{
+				std::cout<<i<<" ";
 		}
 	}
 	
@@ -102,5 +148,6 @@ namespace numpp
 	template<class T, int N> int size(T (&r)[N])
 	{
 		return N;
-	}	
+	}
+	
 }
