@@ -5,5 +5,6 @@
 #include <iostream>
 
 #include "Array.hpp"
+#include "Matrix.hpp"
 
 #endif
