@@ -49,42 +49,7 @@ namespace numpp
 		}
 	}
 
-	template<typename T,int N> void bubble_sort(std::string (&r)[N],bool ascending=true)
-	{
-		if(ascending)
-		{
-			for(int i=0;i<N-1;i++)
-			{
-				for(int j=0;j<N-1-i;j++)
-				{
-					if(*(r+j).compare(*(r+j+1))>0)
-					{
-						std::string temp;
-						temp = *(r+j);
-						*(r+j) = *(r+j+1);
-						*(r+j+1) = temp;
-					}
-				}
-			}
-		}
-		else
-		{
-			for(int i=0;i<N-1;i++)
-			{
-				for(int j=0;j<N-1-i;j++)
-				{
-					if(*(r+j).compare(*(r+j+1))<0)
-					{
-						std::string temp;
-						temp = *(r+j);
-						*(r+j) = *(r+j+1);
-						*(r+j+1) = temp;
-					}
-				}
-			}
-		}
-	}
-
+//not working
 	template <typename T> void bubble_sort(std::vector<T> value,bool ascending=true)
 	{
 		if(ascending)
@@ -121,52 +86,89 @@ namespace numpp
 		}
 	}
 
-	template <typename T> void bubble_sort(std::vector<std::string> value,bool ascending=true)
-	{
+
+    template<class T,int N> void selection_sort(T (&r)[N],bool ascending=true)
+    {
 		if(ascending)
 		{
-			for(int i=0;i<value.size()-1;i++)
+			for(int i=0;i<N;i++)
 			{
-				for(int j=0;j<value.size()-1-i;j++)
+				T min = *(r+i);
+				int min_index = i;
+				for(int j=i;j<N;j++)
 				{
-					if(value[j].compare(value[j+1])>0)
+					if(*(r+j)<min)
 					{
-						T temp;
-						temp = value[j];
-						value[j] = value[j+1];
-						value[j+1] = temp;
+						min_index = j;
+						min = *(r+j);
 					}
 				}
+				T temp = *(r+i);
+				*(r+i) = *(r+min_index);
+				*(r+min_index) = temp;
 			}
 		}
 		else
 		{
-			for(int i=0;i<value.size()-1;i++)
+			for(int i=0;i<N;i++)
 			{
-				for(int j=0;j<value.size()-1-i;j++)
+				T max = *(r+i);
+				int max_index = i;
+				for(int j=i;j<N;j++)
 				{
-					if(value[j].compare(value[j+1])<0)
+					if(*(r+j)>max)
 					{
-						T temp;
-						temp = value[j];
-						value[j] = value[j+1];
-						value[j+1] = temp;
+						max_index = j;
+						max = *(r+j);
 					}
 				}
+				T temp = *(r+i);
+				*(r+i) = *(r+max_index);
+				*(r+max_index) = temp;
 			}
 		}
-	}
-
-    template<class T,int N> void selection_sort(T (&r)[N],bool ascending=true)
+    }
+//not working
+	template<class T> void selection_sort(std::vector<T> value,bool ascending=true)
     {
-        for(int i=0;i<N;i++)
-        {
-            int min = *(r+i),min_index = i;
-            for(int j=i;j<N;j++)
-            {
-                if()
-            }
-        }
+		if(ascending)
+		{
+			for(int i=0;i<value.size();i++)
+			{
+				T min = value[i];
+				int min_index = i;
+				for(int j=i;j<value.size();j++)
+				{
+					if(value[j]<min)
+					{
+						min_index = j;
+						min = value[j];
+					}
+				}
+				T temp = value[i];
+				value[i] = value[min_index];
+				value[min_index] = temp;
+			}
+		}
+		else
+		{
+			for(int i=0;i<value.size();i++)
+			{
+				T max = value[i];
+				int max_index = i;
+				for(int j=i;j<value.size();j++)
+				{
+					if(value[j]>max)
+					{
+						max_index = j;
+						max = value[j];
+					}
+				}
+				T temp = value[i];
+				value[i] = value[max_index];
+				value[max_index] = temp;
+			}
+		}
     }
 
 }
