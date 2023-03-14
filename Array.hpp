@@ -39,6 +39,14 @@ namespace numpp
 		//does nothing
 	}
 	
+	/**
+	* Constructor for an Array object given a primitive array and length of array.
+	*
+	* PARAMS:
+	* 	T input[]: The primitive array required to be converted to Array object.
+	* 	int len: length of primitive array.
+	*/
+	
 	template <typename T> Array<T>::Array(T input[],int len)
 	{	
 		for(int i=0;i<len;i++)
@@ -46,6 +54,17 @@ namespace numpp
 			value.push_back(input[i]);
 		}
 	}
+	
+	/**
+	* Constructor for an Array object with given length, each element initialised to random values.
+	*
+	* PARAMS:
+	* 	int length: length of Array objects values.
+	* 	int min: min value for randomizer. Defaults to 0.
+	* 	int max: max value for randomizer. Defaults to 1.
+	*
+	* NOTE: min and max are used only when T is float/int. Unaffected in other template classes
+	*/
 	
 	template<typename T> Array<T>::Array(int length,int min,int max)
 	{
@@ -57,6 +76,10 @@ namespace numpp
 		}
 	}
 	
+	/**
+	* Return an array of floating point values ranging from min to max.
+	*/
+	
 	template <> Array<float>::Array(int length,int min,int max)
 	{
 		time_t nTime;
@@ -66,6 +89,11 @@ namespace numpp
 			value.push_back((float(rand()%1000)/1000)*(float(max)-min)+float(min));
 		}
 	}
+	
+	/**
+	* Return an array of integer values ranging from min to max.
+	* In the default case return between 0 and 100.
+	*/
 	
 	template <> Array<int>::Array(int length,int min,int max)
 	{
