@@ -17,6 +17,8 @@ namespace numpp
 		
 		Matrix(std::vector<std::vector<T> > &a);
 		
+		Matrix(int rows, int columns, T num);
+		
 		//TODO:
 		//Matrix(vector<T> a[]);
 		
@@ -37,6 +39,21 @@ namespace numpp
 				std::cout << matrix[i][j] << " ";
 			}
 			std::cout << std::endl;
+		} 
+	}
+	
+	template <typename T> Matrix<T>::Matrix(int rows, int columns, T num)
+	{
+		row_length = rows;
+		col_length = columns;
+		for (int i = 0; i < rows; i++)
+		{
+			std::vector<T> temp_vec;
+			for (int j = 0; j < columns; j++)
+			{
+				temp_vec.push_back(num);
+			}
+			matrix.push_back(temp_vec);
 		} 
 	}
 	
@@ -67,15 +84,19 @@ namespace numpp
 	
 	template <typename T> Matrix<T>::display()
 	{
+		std::cout << "[";
 		for (int i = 0; i < matrix.size(); i++)
 		{
+			std::cout << "[";
 			for (int j = 0; j < matrix[i].size(); j++)
 			{
 				std::cout << matrix[i][j] << " ";
 			}
-			std::cout << std::endl;
-		} 
+			std::cout << "]";
+			if(i == matrix.size() - 1)
+				std::cout << "]";
+			else
+				std::cout << std::endl;
+		}
 	}
 }
-
-
