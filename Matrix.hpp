@@ -7,7 +7,7 @@ namespace numpp
 		private: 
 		
 		std::vector<std::vector<T> > matrix;
-		row_length, col_length;
+		int row_length, col_length;
 		swap(T &a, T &b);
 		
 		public: 
@@ -28,8 +28,8 @@ namespace numpp
 	template <typename T> Matrix<T>::Matrix(std::vector<std::vector<T> > &a)
 	{
 		matrix = a;
-		row_len = a.size();
-		col_len = a[0].size();
+		row_length = a.size();
+		col_length = a[0].size();
 		for (int i = 0; i < matrix.size(); i++)
 		{
 			for (int j = 0; j < matrix[i].size(); j++)
@@ -43,10 +43,10 @@ namespace numpp
 	template <typename T> Matrix<T>::transpose()
 	{
 		std::vector<std::vector<T> > temp_mat;
-		for(int i = 0; i < matrix[0].size(); i++)
+		for(int i = 0; i < col_length; i++)
 		{
-			std::vector<T> temp_vec = {};
-			for(int j = 0; j < matrix.size(); j++)
+			std::vector<T> temp_vec;
+			for(int j = 0; j < row_length; j++)
 			{
 				temp_vec.push_back(matrix[j][i]);
 			}
@@ -54,13 +54,28 @@ namespace numpp
 		}
 		
 		matrix = temp_mat;
+		row_length = matrix.size();
+		col_length = matrix[0].size();
 	}
 	
-	template <template T> Matrix<T>::swap(T &a, T &b)
+	template <typename T> Matrix<T>::swap(T &a, T &b)
 	{
 		T temp = a;
 		a = b;
 		b = temp;
 	}
+	
+	template <typename T> Matrix<T>::display()
+	{
+		for (int i = 0; i < matrix.size(); i++)
+		{
+			for (int j = 0; j < matrix[i].size(); j++)
+			{
+				std::cout << matrix[i][j] << " ";
+			}
+			std::cout << std::endl;
+		} 
+	}
 }
+
 
