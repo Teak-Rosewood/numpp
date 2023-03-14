@@ -8,13 +8,23 @@ namespace numpp
 		
 		std::vector<std::vector<T> > matrix;
 		row_length, col_length;
+		swap(T &a, T &b);
 		
 		public: 
 		
+		//TODO:
 		//Matrix(Array<T> a[]);
+		
 		Matrix(std::vector<std::vector<T> > &a);
+		
+		//TODO:
 		//Matrix(vector<T> a[]);
+		
+		transpose();
+		
+		display();
 	};
+	
 	template <typename T> Matrix<T>::Matrix(std::vector<std::vector<T> > &a)
 	{
 		matrix = a;
@@ -29,29 +39,28 @@ namespace numpp
 			std::cout << std::endl;
 		} 
 	}
-}
-
-
-
-/*
-template <typename T> float Matrix<T>::mean()
-{
-		int row_length = size;
-		int col_length = matrix[0].size();
-		int temp_sum = 0;
-		for(int i = 0; i < row_length; i++)
+	
+	template <typename T> Matrix<T>::transpose()
+	{
+		std::vector<std::vector<T> > temp_mat;
+		for(int i = 0; i < matrix[0].size(); i++)
 		{
-			for(int j = 0 j < col_length; j++)
+			std::vector<T> temp_vec = {};
+			for(int j = 0; j < matrix.size(); j++)
 			{
-				sum = matrix[0].
+				temp_vec.push_back(matrix[j][i]);
 			}
+			temp_mat.push_back(temp_vec);
 		}
 		
-		return sum / (row_length * col_length);
+		matrix = temp_mat;
+	}
+	
+	template <template T> Matrix<T>::swap(T &a, T &b)
+	{
+		T temp = a;
+		a = b;
+		b = temp;
+	}
 }
-*/
-/*
-numpp::Matrix<int> A
-A.mean() -- returns mean
-mean(A) -- returns mean 
-*/ 
+
