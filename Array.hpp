@@ -1,6 +1,12 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
+
+#ifndef _ARR_H_
+#define _ARR_H_
+
 #include "sort.hpp"
 
 namespace numpp
@@ -16,7 +22,7 @@ namespace numpp
 			
 			Array();
 			Array(T[],int);
-			Array(T);
+			Array(int,int=0,int=1);
 			
 			int shape();
 			void sort(sort_type = BUBBLE,bool = true);
@@ -43,9 +49,39 @@ namespace numpp
 		}
 	}
 	
-	template <typename T> Array<T>::Array(T input)
+	template<typename T> Array<T>::Array(int length,int min,int max)
 	{
-		value.push_back(input);
+		std::vector<T> temp(length);
+		value = temp;
+		if(min!=0 || max!=1)
+		{
+			std::cerr<<"Cannot randomize.";
+		}
+	}
+	
+	template <> Array<float>::Array(int length,int min,int max)
+	{
+		time_t nTime;
+		srand((unsigned) time(&nTime));
+		for(int i=0;i<length;i++)
+		{
+			value.push_back((float(rand()%1000)/1000)*(float(max)-min)+float(min));
+		}
+	}
+	
+	template <> Array<int>::Array(int length,int min,int max)
+	{
+		if(max-min<=1)
+		{
+			min = 0;
+			max = 100;
+		}
+		time_t nTime;
+		srand((unsigned) time(&nTime));
+		for(int i=0;i<length;i++)
+		{
+			value.push_back(int((float(rand()%1000)/1000)*(float(max)-min)+float(min)));
+		}
 	}
 
 	/*
@@ -64,9 +100,7 @@ namespace numpp
 	/*
 	Sorts the Array
 	PARAMS
-
 	RETURN
-
 	*/
 	template <typename T> void Array<T>::sort(sort_type type,bool ascending)
 	{
@@ -212,3 +246,4 @@ namespace numpp
 	}
 }
 
+#endif
