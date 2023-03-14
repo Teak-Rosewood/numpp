@@ -3,11 +3,12 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include "sort.hpp"
 
 #ifndef _ARR_H_
 #define _ARR_H_
 
-#include "sort.hpp"
+
 
 namespace numpp
 {
@@ -30,10 +31,7 @@ namespace numpp
 	
 	
 	template <typename T> void print(Array<T> val);
-	template<class T, int N> Array<T> toArray(T (&r)[N]);
-	template<class T, int N> int size(T (&r)[N]);
-	// template<class T,int N> void bubble_sort(T (&r)[N],bool);
-	// template <typename T> void bubble_sort(std::vector<T> value,bool);
+
 	
 	// Constructors
 	template <typename T> Array<T>::Array()
@@ -84,12 +82,12 @@ namespace numpp
 		}
 	}
 
-	/*
-	Returns the size(length) of an Array object.
-	PARAMS:
-	
-	RETURN:
-		int: length of Array
+	/**
+	* Returns the size(length) of an Array object.
+	* PARAMS:
+	*
+	* RETURN:
+	* 	 int: length of Array
 	*/
 	
 	template <typename T> int Array<T>::shape()
@@ -97,24 +95,24 @@ namespace numpp
 		return value.size();
 	}
 	
-	/*
-	Sorts the Array
-	PARAMS
-	RETURN
+	/**
+	* Sorts the Array
+	* PARAMS
+	* RETURN
 	*/
 	template <typename T> void Array<T>::sort(sort_type type,bool ascending)
 	{
 
 	}
 
-	/*
-	Prints value of each element.
-	If data cannot be printed, prints reference to data.
-	
-	PARAMS:
-		Array<T> val : input of numpp::Array object.
-	RETURN:
-		void : prints values to console.
+	/**
+	* Prints value of each element.
+	* If data cannot be printed, prints reference to data.
+	*
+	* PARAMS:
+	*	 Array<T> val : input of numpp::Array object.
+	* RETURN:
+	*	 void : prints values to console.
 	*/
 	
 	template <typename T> void print(Array<T> val)
@@ -211,38 +209,6 @@ namespace numpp
 				std::cout<<",";
 		}
 		std::cout<<"]"<<std::endl;
-	}
-	
-	/*
-	Allows conversion of arrays to Array object without information about size.
-	
-	PARAMS:
-		T (&r)[N] : input of array of type T(template)
-	RETURN:
-		Array<T> : numpp::Array object
-	*/
-	
-	template<class T, int N> Array<T> toArray(T (&r)[N])
-	{
-		Array<T> array;
-		for(int i=0;i<N;i++)
-		{
-			array.value.push_back(*(r+i));
-		}
-		return array;
-	}
-	
-	/*
-	returns size of any array.
-	
-	PARAMS:
-		T (&r)[N] : input of array of type T(template)
-	RETURN:
-		int : size of array
-	*/
-	template<class T, int N> int size(T (&r)[N])
-	{
-		return N;
 	}
 }
 
