@@ -2,8 +2,21 @@
 #include <iostream>
 #include <string>
 
+#ifndef _SORT__
+#define _SORT__
+
 namespace numpp
 {
+	template<class T,int N> void bubble_sort(T (&r)[N],bool=true);
+	template <typename T> void bubble_sort(std::vector<T> value,bool=true);
+	template<class T,int N> void selection_sort(T (&r)[N],bool=true);
+	template<class T> void selection_sort(std::vector<T> value,bool=true);
+	template<class T,int N> void insertionSort(T (&r)[N],bool =true);
+	template<typename T> void swap(T& , T& );
+	template <typename T> T partition(T* ,int , int , int );
+	template<typename T> void quickSortinner(T* , T , T ,int);
+	template<typename T,int N> void quickSort(T (&r)[N],bool = true);
+
 	/*
 	bubble sort for various data types(arrays and vectors)
 
@@ -13,7 +26,7 @@ namespace numpp
 
 	*/
 
-	template<class T,int N> void bubble_sort(T (&r)[N],bool ascending=true)
+	template<class T,int N> void bubble_sort(T (&r)[N],bool ascending)
 	{
 		if(ascending)
 		{
@@ -49,45 +62,8 @@ namespace numpp
 		}
 	}
 
-//not working
-	template <typename T> void bubble_sort(std::vector<T> value,bool ascending=true)
-	{
-		if(ascending)
-		{
-			for(int i=0;i<value.size()-1;i++)
-			{
-				for(int j=0;j<value.size()-1-i;j++)
-				{
-					if(value[j] > value[j+1])
-					{
-						T temp;
-						temp = value[j];
-						value[j] = value[j+1];
-						value[j+1] = temp;
-					}
-				}
-			}
-		}
-		else
-		{
-			for(int i=0;i<value.size()-1;i++)
-			{
-				for(int j=0;j<value.size()-1-i;j++)
-				{
-					if(value[j] < value[j+1])
-					{
-						T temp;
-						temp = value[j];
-						value[j] = value[j+1];
-						value[j+1] = temp;
-					}
-				}
-			}
-		}
-	}
 
-
-    template<class T,int N> void selection_sort(T (&r)[N],bool ascending=true)
+    template<class T,int N> void selection_sort(T (&r)[N],bool ascending)
     {
 		if(ascending)
 		{
@@ -128,47 +104,100 @@ namespace numpp
 			}
 		}
     }
-//not working
-	template<class T> void selection_sort(std::vector<T> value,bool ascending=true)
-    {
+
+	template<class T,int N> void insertionSort(T (&r)[N],bool ascending)
+	{
 		if(ascending)
 		{
-			for(int i=0;i<value.size();i++)
+			int i, key, j;
+			for (i = 1; i < N; i++)
 			{
-				T min = value[i];
-				int min_index = i;
-				for(int j=i;j<value.size();j++)
+				key = *(r+i);
+				j = i - 1;
+				while (j >= 0 && *(r+j) > key)
 				{
-					if(value[j]<min)
-					{
-						min_index = j;
-						min = value[j];
-					}
+					*(r+j + 1) = *(r+j);
+					j = j - 1;
 				}
-				T temp = value[i];
-				value[i] = value[min_index];
-				value[min_index] = temp;
+				*(r+j + 1) = key;
 			}
 		}
 		else
 		{
-			for(int i=0;i<value.size();i++)
+			int i, key, j;
+			for (i = 1; i < N; i++)
 			{
-				T max = value[i];
-				int max_index = i;
-				for(int j=i;j<value.size();j++)
+				key = *(r+i);
+				j = i - 1;
+				while (j >= 0 && *(r+j) < key)
 				{
-					if(value[j]>max)
-					{
-						max_index = j;
-						max = value[j];
-					}
+					*(r+j + 1) = *(r+j);
+					j = j - 1;
 				}
-				T temp = value[i];
-				value[i] = value[max_index];
-				value[max_index] = temp;
+				*(r+j + 1) = key;
+			}
+		}
+	}
+
+	template<typename T> void swap(T& a, T& b)
+	{
+		T t = a;
+		a = b;
+		b = t;
+	}
+
+	template <typename T> T partition(T* r,int N, int l, int h)
+	{
+		T x = *(r+h);
+		T i = (l - 1);
+
+		for (T j = l; j <= h - 1; j++) {
+			if (*(r+j) <= x) {
+				i++;
+				swap(*(r+i), *(r+j));
+			}
+		}
+		swap(*(r+i + 1), *(r+h));
+		return (i + 1);
+	}
+
+	template<typename T> void quickSortinner(T* r, T l, T h,int N)
+	{
+		T stack[h - l + 1];
+		int top = -1;
+
+		stack[++top] = l;
+		stack[++top] = h;
+
+		while (top >= 0) {
+			h = stack[top--];
+			l = stack[top--];
+
+			T p = partition(r,N, l, h);
+	
+			if (p - 1 > l) {
+				stack[++top] = l;
+				stack[++top] = p - 1;
+			}
+
+			if (p + 1 < h) {
+				stack[++top] = p + 1;
+				stack[++top] = h;
+			}
+		}
+	}
+
+    template<typename T,int N> void quickSort(T (&r)[N],bool ascending)
+    {
+        quickSortinner(r,0,N-1,N);
+		if(!ascending)
+		{
+			for(int i=0;i<N/2;i++)
+			{
+				swap(*(r+i),*(r+N-1-i));
 			}
 		}
     }
-
 }
+
+#endif
