@@ -9,6 +9,7 @@ namespace numpp
 	template<class T, int N> Array<T> toArray(T (&r)[N]);
 	template<class T, int N> int size(T (&r)[N]);
 	template<class T, int N> void reverse(T (&r)[N]);
+	template<class T,int N> void print(T (&r)[N]);
 
 	/**
 	* Allows conversion of arrays to Array object without information about size.
@@ -48,6 +49,18 @@ namespace numpp
 		{
 			swap(*(r+i),*(r+N-1-i));
 		}
+	}
+
+	template<class T,int N> void print(T (&r)[N])
+	{
+		std::cout<<"[";
+		for(int i=0;i<N;i++)
+		{
+			std::cout<<*(r+i);
+			if(i<N-1)
+				std::cout<<",";
+		}
+		std::cout<<"]"<<std::endl;
 	}
 
 }
