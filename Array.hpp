@@ -27,6 +27,10 @@ namespace numpp
 			
 			int shape();
 			void sort(sort_type = BUBBLE,bool = true);
+			T max();
+			T min();
+			T mean();
+			T sum();
 	};
 	
 	
@@ -238,6 +242,49 @@ namespace numpp
 		}
 		std::cout<<"]"<<std::endl;
 	}
+
+	template <typename T>T Array<T>::max()
+	{
+		T max = value[0];
+		for(int i=0;i<value.size();i++)
+		{
+			if(value[i]>max)
+				max = value[i];
+		}
+		return max;
+	}
+
+	template <typename T>T Array<T>::min()
+	{
+		T min = value[0];
+		for(int i=0;i<value.size();i++)
+		{
+			if(value[i]<min)
+				min = value[i];
+		}
+		return min;
+	}
+
+	template <typename T>T Array<T>::mean()
+	{
+		T sum = 0;
+		for(int i=0;i<value.size();i++)
+		{
+			sum += value[i];
+		}
+		return sum/value.size();
+	}
+
+	template <typename T>T Array<T>::sum()
+	{
+		T sum = 0;
+		for(int i=0;i<value.size();i++)
+		{
+			sum += value[i];
+		}
+		return sum;
+	}
+
 }
 
 #endif
