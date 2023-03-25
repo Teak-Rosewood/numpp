@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #ifndef _functions_
 #define _functions_
 
@@ -10,6 +11,10 @@ namespace numpp
 	long ncr(int ,int );
 	long npr(int ,int );
 	float sin(float,int=10,bool=false);
+	float cos(float,int=10,bool=false);
+	float tan(float,int=10,bool=false);
+	float degtorad(float);
+	float radtodeg(float);
 	
 	long factorial(int x)
 	{
@@ -116,6 +121,25 @@ namespace numpp
 		}
 		return ans;
 	}
-
+	
+	float cos(float x,int precision,bool override)
+	{
+		return sqrt(1-power(sin(x,precision,override),2));
+	}
+	
+	float tan(float x,int precision,bool override)
+	{
+		return sin(x,precision,override)/cos(x,precision,override);
+	}
+	
+	float degtorad(float x)
+	{
+		return x*0.01745;
+	}
+	
+	float radtodeg(float x)
+	{
+		return x*57.2957795;
+	}
 }
 #endif
